@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Service
 public class DashboardService {
@@ -63,6 +66,21 @@ public class DashboardService {
 		long ideasApproved = ideaRepository.countByStatus(IdeaStatus.APROVADA);
 		long ideasInAnalysis = ideaRepository.countByStatus(IdeaStatus.EM_ANALISE);
 
+		long totalProjects = projects.size();
+
+		// Todas as divisões presentes nos projetos filtrados entram no gráfico,
+		// não apenas um conjunto fixo (Logística/Passageiros/Comercial).
+		Map<String, Long> byDivision = projects.stream()
+				.map(ProjectDocument::getDivision)
+				.filter(d -> d != null && !d.isBlank())
+				.collect(Collectors.groupingBy(d -> d, TreeMap::new, Collectors.counting()));
+
+		List<DashboardSummaryResponse.ProjectsByDivision> projectsByDivision = byDivision.entrySet().stream()
+				.sorted(Map.Entry.<String, Long>comparingByValue().reversed()
+						.thenComparing(Map.Entry.comparingByKey()))
+				.map(e -> new DashboardSummaryResponse.ProjectsByDivision(e.getKey(), e.getValue()))
+				.toList();
+
 		return new DashboardSummaryResponse(
 				totalInvestment.doubleValue(),
 				totalReturn.doubleValue(),
@@ -72,7 +90,9 @@ public class DashboardService {
 				activeProjects,
 				completedProjects,
 				ideasApproved,
-				ideasInAnalysis
+				ideasInAnalysis,
+				totalProjects,
+				projectsByDivision
 		);
 	}
 

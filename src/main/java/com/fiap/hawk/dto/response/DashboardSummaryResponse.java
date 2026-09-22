@@ -1,5 +1,7 @@
 package com.fiap.hawk.dto.response;
 
+import java.util.List;
+
 public record DashboardSummaryResponse(
 		double totalInvestment,
 		double totalReturn,
@@ -9,6 +11,10 @@ public record DashboardSummaryResponse(
 		long activeProjects,
 		long completedProjects,
 		long ideasApproved,
-		long ideasInAnalysis
+		long ideasInAnalysis,
+		long totalProjects,
+		List<ProjectsByDivision> projectsByDivision
 ) {
+	public record ProjectsByDivision(String division, long count) {
+	}
 }
