@@ -1,22 +1,27 @@
 package com.fiap.hawk;
 
+import com.fiap.hawk.config.DataSeeder;
+import com.fiap.hawk.security.JwtService;
+import com.mongodb.client.MongoClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+		"spring.mongodb.uri=mongodb://localhost:27017/hawk_test",
+		"hawk.seed.enabled=false",
+		"hawk.gemini.api-key="
+})
 class HawkApplicationTests {
 
-	@DynamicPropertySource
-	static void mongoProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.mongodb.uri",
-				() -> System.getenv().getOrDefault("MONGODB_URI",
-						"mongodb+srv://hawk_secret_user:Hawk3000@cluster0.4dh4jnp.mongodb.net/hawk_test?retryWrites=true&w=majority"));
-		registry.add("hawk.seed.enabled", () -> "false");
-	}
+	@MockitoBean
+	private MongoClient mongoClient;
+	@MockitoBean
+	private JwtService jwtService;
+	@MockitoBean
+	private DataSeeder dataSeeder;
 
 	@Test
-	void contextLoads() {
+	void contextLoadsWithoutGeminiKeyOrExternalConnections() {
 	}
 }

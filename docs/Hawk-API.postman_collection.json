@@ -185,6 +185,29 @@
             "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
             "url": "{{baseUrl}}/dashboard/summary"
           }
+        },
+        {
+          "name": "Gerar insights com IA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"2026-01-01\",\n  \"to\": \"2026-09-30\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/dashboard/insights",
+            "description": "Requer JWT LIDER e GEMINI_API_KEY no backend. Apenas filtros; métricas são obtidas internamente."
+          }
         }
       ]
     }

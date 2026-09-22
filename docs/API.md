@@ -47,3 +47,11 @@ Regras:
 - `totalProjects` é o total de projetos considerados no filtro atual (`division`/`from`/`to`); `count` de cada item de `projectsByDivision` é relativo a esse mesmo total.
 - O backend **não** envia `percent`: o app deve calcular `count / totalProjects` para evitar inconsistência entre backend e cliente. `count` + `totalProjects` são a fonte de verdade.
 - `projectsByDivision` traz **todas** as divisões existentes nos projetos filtrados, não um conjunto fixo. O app não deve fixar apenas "Logística", "Passageiros" e "Comercial" no gráfico — divisões como "Financeiro" ou "Operações" também podem aparecer, e ignorá-las faz o total visual não fechar em 100%.
+
+## IA — Insights do Dashboard
+
+`POST /api/v1/dashboard/insights` (JWT, perfil `LIDER`). Envie `{}` ou os filtros
+`division`, `from` e `to` em JSON. Retorna `generatedAt` e `analysis` com resumo,
+destaques, pontos de atenção, observações e recomendações gerados pelo Gemini.
+Consulte o [README](../README.md#ia--insights-do-dashboard) para configuração,
+exemplos e erros.
