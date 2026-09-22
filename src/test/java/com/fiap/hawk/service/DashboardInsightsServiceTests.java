@@ -61,7 +61,7 @@ class DashboardInsightsServiceTests {
 		server = MockRestServiceServer.bindTo(builder).build();
 		service = new DashboardInsightsService(dashboard, properties, builder.build(), validation.getValidator());
 		when(dashboard.summary(any(), any(), any())).thenReturn(
-				new DashboardSummaryResponse(1000, 1500, 50, 10, 20, 3, 1, 8, 2));
+				new DashboardSummaryResponse(1000, 1500, 50, 10, 20, 3, 1, 8, 2, 4, java.util.List.of()));
 	}
 
 	@AfterEach
@@ -195,7 +195,8 @@ class DashboardInsightsServiceTests {
 
 	@Test
 	void acceptsEmptyDataWithoutInventedFallback() throws Exception {
-		when(dashboard.summary(null, null, null)).thenReturn(new DashboardSummaryResponse(0, 0, 0, 0, 0, 0, 0, 0, 0));
+		when(dashboard.summary(null, null, null)).thenReturn(
+				new DashboardSummaryResponse(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, java.util.List.of()));
 		String analysis = "{\"summary\":\"Dados insuficientes.\",\"highlights\":[],\"attentionPoints\":[],\"trends\":[],\"recommendations\":[]}";
 		server.expect(requestTo(URL)).andRespond(withSuccess(envelope(analysis), MediaType.APPLICATION_JSON));
 		assertThat(service.generate(new DashboardInsightsRequest(null, null, null)).analysis().summary())

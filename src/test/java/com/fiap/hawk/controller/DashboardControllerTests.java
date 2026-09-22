@@ -113,7 +113,8 @@ class DashboardControllerTests {
 		mvc.perform(post("/api/v1/dashboard/insights").contentType(MediaType.APPLICATION_JSON).content("{}"))
 				.andExpect(status().isServiceUnavailable()).andExpect(jsonPath("$.code").value("AI_UNAVAILABLE"))
 				.andExpect(jsonPath("$.traceId").isNotEmpty());
-		when(dashboard.summary(null, null, null)).thenReturn(new DashboardSummaryResponse(1, 2, 3, 4, 5, 6, 7, 8, 9));
+		when(dashboard.summary(null, null, null)).thenReturn(
+				new DashboardSummaryResponse(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, java.util.List.of()));
 		mvc.perform(get("/api/v1/dashboard/summary"))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.ideasApproved").value(8));
 	}
