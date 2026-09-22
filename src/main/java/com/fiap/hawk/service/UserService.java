@@ -26,7 +26,7 @@ public class UserService {
 				.toList();
 	}
 
-	public UserDocument requireByPublicId(Long publicId) {
+	public UserDocument requireByPublicId(Integer publicId) {
 		return userRepository.findByPublicId(publicId)
 				.orElseThrow(() -> com.fiap.hawk.exception.ApiException.notFound("Usuário não encontrado."));
 	}

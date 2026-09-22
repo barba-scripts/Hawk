@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IdeaRepository extends MongoRepository<IdeaDocument, String> {
-	Optional<IdeaDocument> findByPublicId(Long publicId);
-	List<IdeaDocument> findByAuthorUserIdOrderByCreatedAtDesc(Long authorUserId);
+	Optional<IdeaDocument> findByPublicId(Integer publicId);
+	List<IdeaDocument> findByAuthorUserIdOrderByCreatedAtDesc(Integer authorUserId);
 	List<IdeaDocument> findAllByOrderByCreatedAtDesc();
 	long countByStatus(IdeaStatus status);
 }

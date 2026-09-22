@@ -40,7 +40,7 @@ public class IdeiaController {
 	}
 
 	@GetMapping("/{id}")
-	public IdeiaResponse get(@PathVariable Long id) {
+	public IdeiaResponse get(@PathVariable Integer id) {
 		return ideaService.get(id, SecurityUtils.currentUser());
 	}
 
@@ -51,7 +51,7 @@ public class IdeiaController {
 	}
 
 	@PatchMapping("/{id}")
-	public IdeiaResponse review(@PathVariable Long id, @Valid @RequestBody ReviewIdeiaRequest request) {
+	public IdeiaResponse review(@PathVariable Integer id, @Valid @RequestBody ReviewIdeiaRequest request) {
 		return ideaService.review(id, request, SecurityUtils.currentUser());
 	}
 }

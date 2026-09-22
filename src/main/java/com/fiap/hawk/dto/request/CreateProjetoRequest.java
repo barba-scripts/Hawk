@@ -14,6 +14,6 @@ public record CreateProjetoRequest(
 		@NotBlank String status,
 		@NotNull BigDecimal investment,
 		@NotNull LocalDate deadline,
-		@NotNull Long ideaId
+		@NotNull Integer ideaId
 ) {
 }

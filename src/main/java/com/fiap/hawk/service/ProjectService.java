@@ -55,7 +55,7 @@ public class ProjectService {
 				.toList();
 	}
 
-	public ProjetoResponse get(Long id) {
+	public ProjetoResponse get(Integer id) {
 		return ProjetoResponse.from(require(id));
 	}
 
@@ -104,7 +104,7 @@ public class ProjectService {
 		return ProjetoResponse.from(saved);
 	}
 
-	public ProjetoResponse update(Long id, UpdateProjetoRequest request, UserPrincipal principal) {
+	public ProjetoResponse update(Integer id, UpdateProjetoRequest request, UserPrincipal principal) {
 		ProjectDocument doc = require(id);
 		Map<String, Object> before = snapshot(doc);
 		Instant now = Instant.now();
@@ -177,7 +177,7 @@ public class ProjectService {
 				.setScale(1, RoundingMode.HALF_UP);
 	}
 
-	private ProjectDocument require(Long id) {
+	private ProjectDocument require(Integer id) {
 		return projectRepository.findByPublicId(id)
 				.orElseThrow(() -> ApiException.notFound("Projeto não encontrado."));
 	}

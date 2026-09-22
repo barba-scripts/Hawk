@@ -17,7 +17,7 @@ public class SequenceService {
 		this.mongoTemplate = mongoTemplate;
 	}
 
-	public long next(String sequenceName) {
+	public int next(String sequenceName) {
 		Query query = Query.query(Criteria.where("_id").is(sequenceName));
 		Update update = new Update().inc("seq", 1);
 		FindAndModifyOptions options = FindAndModifyOptions.options().returnNew(true).upsert(true);
@@ -25,6 +25,16 @@ public class SequenceService {
 		if (counter == null) {
 			throw new IllegalStateException("Failed to allocate sequence: " + sequenceName);
 		}
-		return counter.getSeq();
+		return Math.toIntExact(counter.getSeq());
+	}
+
+	public void syncToMax(String sequenceName, int maxValue) {
+		Query query = Query.query(Criteria.where("_id").is(sequenceName));
+		CounterDocument existing = mongoTemplate.findOne(query, CounterDocument.class);
+		long current = existing == null ? 0 : existing.getSeq();
+		if (maxValue > current) {
+			Update update = new Update().set("seq", maxValue);
+			mongoTemplate.upsert(query, update, CounterDocument.class);
+		}
 	}
 }

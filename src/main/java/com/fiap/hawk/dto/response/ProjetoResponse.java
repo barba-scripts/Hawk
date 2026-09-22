@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 public record ProjetoResponse(
-		Long id,
+		Integer id,
 		String name,
 		String description,
 		String division,
@@ -20,8 +20,8 @@ public record ProjetoResponse(
 		Double financialReturn,
 		Double costReduction,
 		Double productivity,
-		Long ideaId,
-		Long managerUserId,
+		Integer ideaId,
+		Integer managerUserId,
 		Instant createdAt,
 		Instant updatedAt
 ) {

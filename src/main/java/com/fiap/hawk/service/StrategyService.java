@@ -37,7 +37,7 @@ public class StrategyService {
 				.toList();
 	}
 
-	public OrientacaoResponse get(Long id) {
+	public OrientacaoResponse get(Integer id) {
 		return OrientacaoResponse.from(require(id));
 	}
 
@@ -59,7 +59,7 @@ public class StrategyService {
 		return OrientacaoResponse.from(saved);
 	}
 
-	public OrientacaoResponse update(Long id, OrientacaoRequest request, UserPrincipal principal) {
+	public OrientacaoResponse update(Integer id, OrientacaoRequest request, UserPrincipal principal) {
 		StrategyDocument doc = require(id);
 		Map<String, Object> before = snapshot(doc);
 		doc.setTitle(request.title());
@@ -71,7 +71,7 @@ public class StrategyService {
 		return OrientacaoResponse.from(saved);
 	}
 
-	public void delete(Long id, UserPrincipal principal) {
+	public void delete(Integer id, UserPrincipal principal) {
 		StrategyDocument doc = require(id);
 		Map<String, Object> before = snapshot(doc);
 		doc.setActive(false);
@@ -84,7 +84,7 @@ public class StrategyService {
 		return strategyRepository.findFirstByActiveTrueOrderByCreatedAtDesc().orElse(null);
 	}
 
-	private StrategyDocument require(Long id) {
+	private StrategyDocument require(Integer id) {
 		return strategyRepository.findByPublicId(id)
 				.filter(StrategyDocument::isActive)
 				.orElseThrow(() -> ApiException.notFound("Orientação não encontrada."));

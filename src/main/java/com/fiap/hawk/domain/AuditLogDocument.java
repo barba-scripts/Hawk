@@ -11,10 +11,10 @@ public class AuditLogDocument {
 
 	@Id
 	private String id;
-	private Long actorUserId;
+	private Integer actorUserId;
 	private String action;
 	private String entityType;
-	private Long entityId;
+	private Integer entityId;
 	private Map<String, Object> before;
 	private Map<String, Object> after;
 	private Instant at;
@@ -27,11 +27,11 @@ public class AuditLogDocument {
 		this.id = id;
 	}
 
-	public Long getActorUserId() {
+	public Integer getActorUserId() {
 		return actorUserId;
 	}
 
-	public void setActorUserId(Long actorUserId) {
+	public void setActorUserId(Integer actorUserId) {
 		this.actorUserId = actorUserId;
 	}
 
@@ -51,11 +51,11 @@ public class AuditLogDocument {
 		this.entityType = entityType;
 	}
 
-	public Long getEntityId() {
+	public Integer getEntityId() {
 		return entityId;
 	}
 
-	public void setEntityId(Long entityId) {
+	public void setEntityId(Integer entityId) {
 		this.entityId = entityId;
 	}
 

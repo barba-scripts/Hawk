@@ -13,7 +13,7 @@ public class UserDocument {
 	private String id;
 
 	@Indexed(unique = true)
-	private Long publicId;
+	private Integer publicId;
 
 	private String name;
 
@@ -35,11 +35,11 @@ public class UserDocument {
 		this.id = id;
 	}
 
-	public Long getPublicId() {
+	public Integer getPublicId() {
 		return publicId;
 	}
 
-	public void setPublicId(Long publicId) {
+	public void setPublicId(Integer publicId) {
 		this.publicId = publicId;
 	}
 

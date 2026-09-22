@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -26,22 +28,29 @@ public class DataSeeder implements ApplicationRunner {
 	private final StrategyRepository strategyRepository;
 	private final SequenceService sequenceService;
 	private final JwtService jwtService;
+	private final MongoTemplate mongoTemplate;
 	private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
 	public DataSeeder(SeedProperties seedProperties, UserRepository userRepository,
 			StrategyRepository strategyRepository, SequenceService sequenceService, JwtService jwtService,
+			MongoTemplate mongoTemplate,
 			org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
 		this.seedProperties = seedProperties;
 		this.userRepository = userRepository;
 		this.strategyRepository = strategyRepository;
 		this.sequenceService = sequenceService;
 		this.jwtService = jwtService;
+		this.mongoTemplate = mongoTemplate;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void run(ApplicationArguments args) {
 		jwtService.reloadKey();
+		sequenceService.syncToMax("users", maxPublicId("users"));
+		sequenceService.syncToMax("strategies", maxPublicId("strategies"));
+		sequenceService.syncToMax("ideas", maxPublicId("ideas"));
+		sequenceService.syncToMax("projects", maxPublicId("projects"));
 
 		if (!seedProperties.isEnabled()) {
 			return;
@@ -71,22 +80,47 @@ public class DataSeeder implements ApplicationRunner {
 		log.info("Seed concluído. Logins demo: carlos.mendes@ / ana.gestora@ / bruno.lider@ (senha-segura)");
 	}
 
+	private int maxPublicId(String collection) {
+		Query query = new Query();
+		query.fields().include("publicId");
+		return mongoTemplate.find(query, org.bson.Document.class, collection).stream()
+				.map(doc -> doc.get("publicId"))
+				.filter(v -> v instanceof Number)
+				.mapToInt(v -> ((Number) v).intValue())
+				.max()
+				.orElse(0);
+	}
+
 	private void ensureUser(String name, String email, String password, Role role, String division) {
-		if (userRepository.existsByEmailIgnoreCase(email)) {
-			return;
-		}
-		Instant now = Instant.now();
-		UserDocument user = new UserDocument();
-		user.setPublicId(sequenceService.next("users"));
-		user.setName(name);
-		user.setEmail(email.toLowerCase());
-		user.setPasswordHash(passwordEncoder.encode(password));
-		user.setRole(role);
-		user.setDivision(division);
-		user.setActive(true);
-		user.setCreatedAt(now);
-		user.setUpdatedAt(now);
-		userRepository.save(user);
-		log.info("Seed: usuário {} ({}) criado", email, role.getValue());
+		userRepository.findByEmailIgnoreCase(email).ifPresentOrElse(existing -> {
+			boolean dirty = false;
+			if (existing.getRole() != role) {
+				existing.setRole(role);
+				dirty = true;
+			}
+			if (!passwordEncoder.matches(password, existing.getPasswordHash())) {
+				existing.setPasswordHash(passwordEncoder.encode(password));
+				dirty = true;
+			}
+			if (dirty) {
+				existing.setUpdatedAt(Instant.now());
+				userRepository.save(existing);
+				log.info("Seed: usuário {} atualizado", email);
+			}
+		}, () -> {
+			Instant now = Instant.now();
+			UserDocument user = new UserDocument();
+			user.setPublicId(sequenceService.next("users"));
+			user.setName(name);
+			user.setEmail(email.toLowerCase());
+			user.setPasswordHash(passwordEncoder.encode(password));
+			user.setRole(role);
+			user.setDivision(division);
+			user.setActive(true);
+			user.setCreatedAt(now);
+			user.setUpdatedAt(now);
+			userRepository.save(user);
+			log.info("Seed: usuário {} ({}) criado", email, role.getValue());
+		});
 	}
 }

@@ -14,19 +14,19 @@ public class IdeaDocument {
 
 	@Id
 	private String id;
-	private Long publicId;
+	private Integer publicId;
 	private String title;
 	private String description;
 	private String division;
 	private IdeaImpact impact;
 	private IdeaStatus status;
 	@Indexed
-	private Long authorUserId;
+	private Integer authorUserId;
 	@Indexed
-	private Long strategyId;
+	private Integer strategyId;
 	private Integer score;
 	private String observation;
-	private Long reviewedByUserId;
+	private Integer reviewedByUserId;
 	private Instant reviewedAt;
 	private LocalDate date;
 	private Instant createdAt;
@@ -41,11 +41,11 @@ public class IdeaDocument {
 		this.id = id;
 	}
 
-	public Long getPublicId() {
+	public Integer getPublicId() {
 		return publicId;
 	}
 
-	public void setPublicId(Long publicId) {
+	public void setPublicId(Integer publicId) {
 		this.publicId = publicId;
 	}
 
@@ -89,19 +89,19 @@ public class IdeaDocument {
 		this.status = status;
 	}
 
-	public Long getAuthorUserId() {
+	public Integer getAuthorUserId() {
 		return authorUserId;
 	}
 
-	public void setAuthorUserId(Long authorUserId) {
+	public void setAuthorUserId(Integer authorUserId) {
 		this.authorUserId = authorUserId;
 	}
 
-	public Long getStrategyId() {
+	public Integer getStrategyId() {
 		return strategyId;
 	}
 
-	public void setStrategyId(Long strategyId) {
+	public void setStrategyId(Integer strategyId) {
 		this.strategyId = strategyId;
 	}
 
@@ -121,11 +121,11 @@ public class IdeaDocument {
 		this.observation = observation;
 	}
 
-	public Long getReviewedByUserId() {
+	public Integer getReviewedByUserId() {
 		return reviewedByUserId;
 	}
 
-	public void setReviewedByUserId(Long reviewedByUserId) {
+	public void setReviewedByUserId(Integer reviewedByUserId) {
 		this.reviewedByUserId = reviewedByUserId;
 	}
 

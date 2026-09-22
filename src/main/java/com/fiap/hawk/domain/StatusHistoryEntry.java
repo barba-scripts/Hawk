@@ -5,14 +5,14 @@ import java.time.Instant;
 public class StatusHistoryEntry {
 
 	private String status;
-	private Long changedByUserId;
+	private Integer changedByUserId;
 	private Instant at;
 	private String observation;
 
 	public StatusHistoryEntry() {
 	}
 
-	public StatusHistoryEntry(String status, Long changedByUserId, Instant at, String observation) {
+	public StatusHistoryEntry(String status, Integer changedByUserId, Instant at, String observation) {
 		this.status = status;
 		this.changedByUserId = changedByUserId;
 		this.at = at;
@@ -27,11 +27,11 @@ public class StatusHistoryEntry {
 		this.status = status;
 	}
 
-	public Long getChangedByUserId() {
+	public Integer getChangedByUserId() {
 		return changedByUserId;
 	}
 
-	public void setChangedByUserId(Long changedByUserId) {
+	public void setChangedByUserId(Integer changedByUserId) {
 		this.changedByUserId = changedByUserId;
 	}
 

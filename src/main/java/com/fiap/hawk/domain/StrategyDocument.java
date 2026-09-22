@@ -11,12 +11,12 @@ public class StrategyDocument {
 
 	@Id
 	private String id;
-	private Long publicId;
+	private Integer publicId;
 	private String title;
 	private String category;
 	private String body;
 	private boolean active = true;
-	private Long createdByUserId;
+	private Integer createdByUserId;
 	private LocalDate date;
 	private Instant createdAt;
 	private Instant updatedAt;
@@ -29,11 +29,11 @@ public class StrategyDocument {
 		this.id = id;
 	}
 
-	public Long getPublicId() {
+	public Integer getPublicId() {
 		return publicId;
 	}
 
-	public void setPublicId(Long publicId) {
+	public void setPublicId(Integer publicId) {
 		this.publicId = publicId;
 	}
 
@@ -69,11 +69,11 @@ public class StrategyDocument {
 		this.active = active;
 	}
 
-	public Long getCreatedByUserId() {
+	public Integer getCreatedByUserId() {
 		return createdByUserId;
 	}
 
-	public void setCreatedByUserId(Long createdByUserId) {
+	public void setCreatedByUserId(Integer createdByUserId) {
 		this.createdByUserId = createdByUserId;
 	}
 

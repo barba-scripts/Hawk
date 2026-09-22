@@ -5,7 +5,7 @@ import com.fiap.hawk.domain.UserDocument;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserResponse(
-		Long id,
+		Integer id,
 		String name,
 		String email,
 		String role,

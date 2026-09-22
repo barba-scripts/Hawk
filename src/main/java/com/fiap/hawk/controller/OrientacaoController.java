@@ -40,7 +40,7 @@ public class OrientacaoController {
 	}
 
 	@GetMapping("/{id}")
-	public OrientacaoResponse get(@PathVariable Long id) {
+	public OrientacaoResponse get(@PathVariable Integer id) {
 		return strategyService.get(id);
 	}
 
@@ -51,12 +51,12 @@ public class OrientacaoController {
 	}
 
 	@PutMapping("/{id}")
-	public OrientacaoResponse update(@PathVariable Long id, @Valid @RequestBody OrientacaoRequest request) {
+	public OrientacaoResponse update(@PathVariable Integer id, @Valid @RequestBody OrientacaoRequest request) {
 		return strategyService.update(id, request, SecurityUtils.currentUser());
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		strategyService.delete(id, SecurityUtils.currentUser());
 		return ResponseEntity.noContent().build();
 	}

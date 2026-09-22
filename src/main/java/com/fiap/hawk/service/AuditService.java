@@ -16,7 +16,7 @@ public class AuditService {
 		this.auditLogRepository = auditLogRepository;
 	}
 
-	public void log(Long actorUserId, String action, String entityType, Long entityId,
+	public void log(Integer actorUserId, String action, String entityType, Integer entityId,
 			Map<String, Object> before, Map<String, Object> after) {
 		AuditLogDocument log = new AuditLogDocument();
 		log.setActorUserId(actorUserId);

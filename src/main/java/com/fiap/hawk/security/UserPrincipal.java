@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-	private final Long publicId;
+	private final Integer publicId;
 	private final String email;
 	private final String passwordHash;
 	private final String name;
@@ -19,7 +19,7 @@ public class UserPrincipal implements UserDetails {
 	private final String division;
 	private final boolean active;
 
-	public UserPrincipal(Long publicId, String email, String passwordHash, String name,
+	public UserPrincipal(Integer publicId, String email, String passwordHash, String name,
 			Role role, String division, boolean active) {
 		this.publicId = publicId;
 		this.email = email;
@@ -42,7 +42,7 @@ public class UserPrincipal implements UserDetails {
 		);
 	}
 
-	public Long getPublicId() {
+	public Integer getPublicId() {
 		return publicId;
 	}
 

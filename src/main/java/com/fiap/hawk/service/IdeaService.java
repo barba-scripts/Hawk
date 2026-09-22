@@ -51,7 +51,7 @@ public class IdeaService {
 					.filter(idea -> idea.getAuthorUserId().equals(principal.getPublicId()))
 					.toList();
 		} else if (userId != null && !userId.isBlank()) {
-			Long parsedUserId = Long.valueOf(userId);
+			Integer parsedUserId = Integer.valueOf(userId);
 			ideas = ideas.stream()
 					.filter(idea -> idea.getAuthorUserId().equals(parsedUserId))
 					.toList();
@@ -72,7 +72,7 @@ public class IdeaService {
 		return filtered.stream().map(IdeiaResponse::from).toList();
 	}
 
-	public IdeiaResponse get(Long id, UserPrincipal principal) {
+	public IdeiaResponse get(Integer id, UserPrincipal principal) {
 		IdeaDocument idea = require(id);
 		assertCanView(idea, principal);
 		return IdeiaResponse.from(idea);
@@ -98,6 +98,7 @@ public class IdeaService {
 		doc.setDivision(request.division());
 		doc.setImpact(impact);
 		doc.setStatus(IdeaStatus.ENVIADA);
+		doc.setScore(0);
 		doc.setAuthorUserId(principal.getPublicId());
 		doc.setDate(LocalDate.now());
 		doc.setCreatedAt(now);
@@ -117,7 +118,7 @@ public class IdeaService {
 		return IdeiaResponse.from(saved);
 	}
 
-	public IdeiaResponse review(Long id, ReviewIdeiaRequest request, UserPrincipal principal) {
+	public IdeiaResponse review(Integer id, ReviewIdeiaRequest request, UserPrincipal principal) {
 		if (principal.getRole() != Role.GESTOR) {
 			throw ApiException.forbidden("Apenas gestores podem avaliar ideias.");
 		}
@@ -175,7 +176,7 @@ public class IdeaService {
 		return IdeiaResponse.from(saved);
 	}
 
-	public IdeaDocument require(Long id) {
+	public IdeaDocument require(Integer id) {
 		return ideaRepository.findByPublicId(id)
 				.orElseThrow(() -> ApiException.notFound("Ideia não encontrada."));
 	}

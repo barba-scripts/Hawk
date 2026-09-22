@@ -1,0 +1,14 @@
+target/
+.idea/
+.git/
+.gitignore
+*.iml
+.mvn/wrapper/maven-wrapper.jar
+hawk/
+docs/
+HELP.md
+tmp-*.json
+*.md
+.classpath
+.project
+.settings/

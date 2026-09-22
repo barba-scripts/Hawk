@@ -7,6 +7,6 @@ public record CreateIdeiaRequest(
 		@NotBlank(message = "Informe uma descrição.") String description,
 		@NotBlank(message = "Informe a divisão.") String division,
 		@NotBlank(message = "Informe o impacto.") String impact,
-		Long userId
+		Integer userId
 ) {
 }

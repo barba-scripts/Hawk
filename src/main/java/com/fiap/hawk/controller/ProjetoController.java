@@ -39,7 +39,7 @@ public class ProjetoController {
 	}
 
 	@GetMapping("/{id}")
-	public ProjetoResponse get(@PathVariable Long id) {
+	public ProjetoResponse get(@PathVariable Integer id) {
 		return projectService.get(id);
 	}
 
@@ -50,7 +50,7 @@ public class ProjetoController {
 	}
 
 	@PatchMapping("/{id}")
-	public ProjetoResponse update(@PathVariable Long id, @Valid @RequestBody UpdateProjetoRequest request) {
+	public ProjetoResponse update(@PathVariable Integer id, @Valid @RequestBody UpdateProjetoRequest request) {
 		return projectService.update(id, request, SecurityUtils.currentUser());
 	}
 }

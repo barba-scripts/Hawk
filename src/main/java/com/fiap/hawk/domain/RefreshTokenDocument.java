@@ -15,7 +15,7 @@ public class RefreshTokenDocument {
 	@Indexed(unique = true)
 	private String tokenHash;
 
-	private Long userPublicId;
+	private Integer userPublicId;
 	private Instant expiresAt;
 	private Instant revokedAt;
 	private String deviceInfo;
@@ -37,11 +37,11 @@ public class RefreshTokenDocument {
 		this.tokenHash = tokenHash;
 	}
 
-	public Long getUserPublicId() {
+	public Integer getUserPublicId() {
 		return userPublicId;
 	}
 
-	public void setUserPublicId(Long userPublicId) {
+	public void setUserPublicId(Integer userPublicId) {
 		this.userPublicId = userPublicId;
 	}
 

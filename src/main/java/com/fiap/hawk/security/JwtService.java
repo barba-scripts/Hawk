@@ -89,8 +89,8 @@ public class JwtService {
 				.getPayload();
 	}
 
-	public Long extractUserId(String token) {
-		return Long.valueOf(parseClaims(token).getSubject());
+	public Integer extractUserId(String token) {
+		return Integer.valueOf(parseClaims(token).getSubject());
 	}
 
 	public Role extractRole(String token) {

@@ -6,18 +6,18 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 public record IdeiaResponse(
-		Long id,
+		Integer id,
 		String title,
 		String description,
 		String division,
 		String impact,
 		String status,
-		Long userId,
+		Integer userId,
 		Integer score,
 		LocalDate date,
 		String observation,
-		Long strategyId,
-		Long reviewedByUserId,
+		Integer strategyId,
+		Integer reviewedByUserId,
 		Instant reviewedAt
 ) {
 	public static IdeiaResponse from(IdeaDocument doc) {

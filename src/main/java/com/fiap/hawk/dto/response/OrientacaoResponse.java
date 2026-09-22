@@ -6,12 +6,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 public record OrientacaoResponse(
-		Long id,
+		Integer id,
 		String title,
 		String category,
 		LocalDate date,
 		String body,
-		Long createdByUserId,
+		Integer createdByUserId,
 		Instant createdAt,
 		Instant updatedAt
 ) {

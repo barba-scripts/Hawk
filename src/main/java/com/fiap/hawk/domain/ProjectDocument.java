@@ -15,7 +15,7 @@ public class ProjectDocument {
 
 	@Id
 	private String id;
-	private Long publicId;
+	private Integer publicId;
 	private String name;
 	private String description;
 	private String division;
@@ -29,10 +29,10 @@ public class ProjectDocument {
 	private BigDecimal costReduction;
 	private BigDecimal productivity;
 	@Indexed(unique = true, sparse = true)
-	private Long ideaId;
+	private Integer ideaId;
 	@Indexed
-	private Long managerUserId;
-	private Long strategyId;
+	private Integer managerUserId;
+	private Integer strategyId;
 	private Instant createdAt;
 	private Instant updatedAt;
 	private List<ProjectHistoryEntry> history = new ArrayList<>();
@@ -45,11 +45,11 @@ public class ProjectDocument {
 		this.id = id;
 	}
 
-	public Long getPublicId() {
+	public Integer getPublicId() {
 		return publicId;
 	}
 
-	public void setPublicId(Long publicId) {
+	public void setPublicId(Integer publicId) {
 		this.publicId = publicId;
 	}
 
@@ -149,27 +149,27 @@ public class ProjectDocument {
 		this.productivity = productivity;
 	}
 
-	public Long getIdeaId() {
+	public Integer getIdeaId() {
 		return ideaId;
 	}
 
-	public void setIdeaId(Long ideaId) {
+	public void setIdeaId(Integer ideaId) {
 		this.ideaId = ideaId;
 	}
 
-	public Long getManagerUserId() {
+	public Integer getManagerUserId() {
 		return managerUserId;
 	}
 
-	public void setManagerUserId(Long managerUserId) {
+	public void setManagerUserId(Integer managerUserId) {
 		this.managerUserId = managerUserId;
 	}
 
-	public Long getStrategyId() {
+	public Integer getStrategyId() {
 		return strategyId;
 	}
 
-	public void setStrategyId(Long strategyId) {
+	public void setStrategyId(Integer strategyId) {
 		this.strategyId = strategyId;
 	}
 

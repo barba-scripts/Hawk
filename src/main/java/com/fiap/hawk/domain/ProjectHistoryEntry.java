@@ -6,14 +6,14 @@ public class ProjectHistoryEntry {
 
 	private String stage;
 	private Integer progress;
-	private Long changedByUserId;
+	private Integer changedByUserId;
 	private Instant at;
 	private String observation;
 
 	public ProjectHistoryEntry() {
 	}
 
-	public ProjectHistoryEntry(String stage, Integer progress, Long changedByUserId, Instant at, String observation) {
+	public ProjectHistoryEntry(String stage, Integer progress, Integer changedByUserId, Instant at, String observation) {
 		this.stage = stage;
 		this.progress = progress;
 		this.changedByUserId = changedByUserId;
@@ -37,11 +37,11 @@ public class ProjectHistoryEntry {
 		this.progress = progress;
 	}
 
-	public Long getChangedByUserId() {
+	public Integer getChangedByUserId() {
 		return changedByUserId;
 	}
 
-	public void setChangedByUserId(Long changedByUserId) {
+	public void setChangedByUserId(Integer changedByUserId) {
 		this.changedByUserId = changedByUserId;
 	}
 

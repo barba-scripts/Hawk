@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StrategyRepository extends MongoRepository<StrategyDocument, String> {
-	Optional<StrategyDocument> findByPublicId(Long publicId);
+	Optional<StrategyDocument> findByPublicId(Integer publicId);
 	List<StrategyDocument> findByActiveTrueOrderByCreatedAtDesc();
 	Optional<StrategyDocument> findFirstByActiveTrueOrderByCreatedAtDesc();
 }

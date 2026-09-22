@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "Hawk API v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api/v1" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login Operador",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const json = pm.response.json();",
+                "pm.collectionVariables.set('token', json.token);"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"carlos.mendes@aguiabranca.com.br\",\n  \"password\": \"senha-segura\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Login Gestor",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const json = pm.response.json();",
+                "pm.collectionVariables.set('token', json.token);"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana.gestora@aguiabranca.com.br\",\n  \"password\": \"senha-segura\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Login Líder",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const json = pm.response.json();",
+                "pm.collectionVariables.set('token', json.token);"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"bruno.lider@aguiabranca.com.br\",\n  \"password\": \"senha-segura\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orientações",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/orientacoes"
+          }
+        },
+        {
+          "name": "Criar (Líder)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Redução de custos Q4\",\n  \"category\": \"Logística\",\n  \"body\": \"Priorizar projetos com redução comprovada.\"\n}"
+            },
+            "url": "{{baseUrl}}/orientacoes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ideias",
+      "item": [
+        {
+          "name": "Criar (Operador)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Manutenção preditiva com IoT\",\n  \"description\": \"Sensores nos veículos.\",\n  \"division\": \"Logística\",\n  \"impact\": \"Alto\",\n  \"userId\": 1\n}"
+            },
+            "url": "{{baseUrl}}/ideias"
+          }
+        },
+        {
+          "name": "Avaliar (Gestor)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Aprovada\",\n  \"score\": 80,\n  \"observation\": \"Alto potencial\"\n}"
+            },
+            "url": "{{baseUrl}}/ideias/36"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projetos",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/projetos"
+          }
+        },
+        {
+          "name": "Criar (Gestor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Frota Conectada\",\n  \"description\": \"Telemetria\",\n  \"division\": \"Logística\",\n  \"stage\": \"Planejamento\",\n  \"status\": \"Ativo\",\n  \"investment\": 480000.0,\n  \"deadline\": \"2026-12-01\",\n  \"ideaId\": 36\n}"
+            },
+            "url": "{{baseUrl}}/projetos"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Summary (Líder)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/dashboard/summary"
+          }
+        }
+      ]
+    }
+  ]
+}
