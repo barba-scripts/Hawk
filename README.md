@@ -4,6 +4,36 @@ Backend da plataforma de inovação, com Java 25, Spring Boot e MongoDB.
 O projeto executável é o `pom.xml` da raiz (também utilizado pelo Dockerfile).
 A pasta `hawk/` contém um esqueleto separado e não participa desse build.
 
+## Deploy em produção — variáveis de ambiente
+
+**Nunca coloque valores reais de segredos neste README, em outros arquivos do
+repositório ou em qualquer commit.** As variáveis abaixo devem ser cadastradas
+como *Environment Variables* diretamente no serviço do Render (Dashboard →
+seu serviço → **Environment**), nunca versionadas no Git:
+
+```dotenv
+MONGODB_URI=<connection string do MongoDB Atlas, com usuário/senha do ambiente de produção>
+PORT=8080
+HAWK_SEED_ENABLED=false
+GEMINI_API_KEY=<chave gerada em https://aistudio.google.com/apikey>
+GEMINI_MODEL=gemini-3.5-flash-lite
+```
+
+Notas importantes:
+
+- `MONGODB_URI` e `GEMINI_API_KEY` são segredos. Se algum valor real desses já
+  foi exposto (colado em chat, log, PR, print, etc.), **rotacione/revogue-o
+  imediatamente** (troque a senha do usuário no MongoDB Atlas e gere uma nova
+  chave no Google AI Studio) e atualize apenas no Render.
+- `HAWK_SEED_ENABLED=false` em produção evita recriar os usuários de
+  demonstração (seed) a cada subida do serviço.
+- `PORT=8080` é o valor padrão que o Render também injeta automaticamente;
+  normalmente não precisa ser definido manualmente.
+- `GEMINI_MODEL` deve apontar para um modelo atualmente disponível para a sua
+  chave/projeto (modelos antigos, como `gemini-2.5-flash-lite`, podem ser
+  descontinuados pela Google e retornar erro 404, que a API expõe como
+  `AI_UNAVAILABLE`).
+
 ## IA — Insights do Dashboard
 
 Gera sob demanda uma análise gerencial em português usando o Google Gemini:
