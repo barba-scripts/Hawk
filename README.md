@@ -20,10 +20,10 @@ configure as variáveis no ambiente do backend (por exemplo, em Environment no R
 
 ```dotenv
 GEMINI_API_KEY=sua-chave-aqui
-GEMINI_MODEL=gemini-2.5-flash-lite
+GEMINI_MODEL=gemini-3.5-flash-lite
 ```
 
-O modelo padrão é `gemini-2.5-flash-lite`. Use uma chave/projeto habilitado para
+O modelo padrão é `gemini-3.5-flash-lite`. Use uma chave/projeto habilitado paraa
 esse modelo, observando os limites e a disponibilidade da cota gratuita da sua conta.
 A implementação não ativa faturamento e não troca automaticamente de modelo ou
 provedor quando a cota se esgota.
